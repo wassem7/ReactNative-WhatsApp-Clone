@@ -1,10 +1,18 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useCallback, useEffect, useState } from 'react';
 import * as Font from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ChatListScreen from './screens/ChatListScreen';
+import Home from './screens/Home';
+import ChatSettingsScreen from './screens/ChatSettingsScreen';
+const Stack = createStackNavigator();
 SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [AppIsLoaded, setAppIsLoaded] = useState(false);
   useEffect(() => {
@@ -46,9 +54,19 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container} onLayout={onlayout}>
-      <SafeAreaView>
-        <Text style={{ fontSize: 20, fontFamily: 'italic' }}>SEEMZYGRAM</Text>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='home' component={ChatListScreen} />
+          <Stack.Screen
+            name='chatsettings'
+            component={ChatSettingsScreen}
+            options={{
+              gestureEnabled: true,
+              headerTitle: 'Settings',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
@@ -56,7 +74,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

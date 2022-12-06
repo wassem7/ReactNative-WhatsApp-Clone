@@ -1,39 +1,12 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useCallback, useEffect, useState } from 'react';
 import * as Font from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import AppNavigator from './navigation/AppNavigator';
 
-// SCREENS
-import ChatListScreen from './screens/ChatListScreen';
-import ChatSettingsScreen from './screens/ChatSettingsScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
-const Stack = createStackNavigator();
-const Tab = createMaterialTopTabNavigator();
-
-const TabNavigator = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name='chatlist'
-        component={ChatListScreen}
-        options={{ tabBarLabel: 'Chats' }}
-      />
-      <Tab.Screen
-        name='settings'
-        component={SettingsScreen}
-        options={{ tabBarLabel: 'Settings' }}
-      />
-    </Tab.Navigator>
-  );
-};
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -77,30 +50,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container} onLayout={onlayout}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name='home'
-            component={TabNavigator}
-            options={{
-              headerTitle: () => (
-                <Text style={{ fontSize: 20, fontFamily: 'bold' }}>
-                  SEEMZYGRAM
-                </Text>
-              ),
-              headerShadowVisible: false,
-            }}
-          />
-          <Stack.Screen
-            name='chatsettings'
-            component={ChatSettingsScreen}
-            options={{
-              gestureEnabled: true,
-              headerTitle: 'Settings',
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AppNavigator />
     </SafeAreaProvider>
   );
 }

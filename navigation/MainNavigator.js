@@ -7,6 +7,7 @@ import { Button, Text, View } from 'react-native';
 import ChatListScreen from '../screens/ChatListScreen';
 import ChatSettingsScreen from '../screens/ChatSettingsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ChatScreen from '../screens/ChatScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -51,6 +52,12 @@ const MainNavigator = () => {
         options={{
           gestureEnabled: true,
         }}
+      />
+
+      <Stack.Screen
+        name='chatscreen'
+        component={ChatScreen}
+        options={{ headerTitle: '', gestureEnabled: true }}
       />
     </Stack.Navigator>
   );

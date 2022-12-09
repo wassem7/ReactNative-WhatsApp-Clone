@@ -12,9 +12,9 @@ const ChatListScreen = ({ navigation }) => {
     >
       <Text style={{ fontSize: 30 }}>ChatListScreen</Text>
       <Button
-        title='Settings'
+        title='Go to Chat Screen'
         onPress={() => {
-          navigation.navigate('chatsettings');
+          navigation.navigate('chatscreen');
         }}
       />
     </View>

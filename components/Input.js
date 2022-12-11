@@ -5,7 +5,7 @@ import colors from '../constants/colors';
 const Input = (props) => {
   return (
     <View style={styles.container}>
-      <Text>{props.label}</Text>
+      <Text style={styles.label}>{props.label}</Text>
       <View style={styles.inputcontainer}>
         {props.icon && (
           <props.iconPack
@@ -15,8 +15,13 @@ const Input = (props) => {
           />
         )}
 
-        <TextInput selectionColor={colors.lightgrey} />
+        <TextInput style={styles.input} selectionColor={colors.lightgrey} />
       </View>
+      {props.errorText && (
+        <View style={styles.errormessageContainer}>
+          <Text style={styles.errorText}>{props.errorText}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -24,6 +29,12 @@ const Input = (props) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+  },
+  label: {
+    marginVertical: 8,
+    fontFamily: 'bold',
+    letterSpacing: 0.3,
+    color: colors.textcolor,
   },
   inputcontainer: {
     backgroundColor: colors.nearlywhite,
@@ -37,6 +48,22 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     color: colors.grey,
+  },
+  input: {
+    color: colors.textcolor,
+    flex: 1,
+    fontFamily: 'regular',
+    letterSpacing: 0.3,
+    paddingTop: 0,
+  },
+  errormessageContainer: {
+    marginVertical: 10,
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 13,
+    fontFamily: 'regular',
+    letterSpacing: 0.3,
   },
 });
 export default Input;

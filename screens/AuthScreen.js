@@ -1,17 +1,33 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PageContainer from '../components/PageContainer';
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import colors from '../constants/colors';
-
+import logo from '../assets/images/SEEMZYGRAM-LOGO.png';
 const AuthScreen = () => {
   const [isSignUp, setisSignUp] = useState(false);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <PageContainer>
+        <View style={styles.imagecontainer}>
+          <Text
+            style={{
+              fontFamily: 'seemzygram',
+              padding: 70,
+              margin: 10,
+              fontSize: 30,
+              color: colors.primary,
+              letterSpacing: 1.5,
+              width: '100%',
+            }}
+          >
+            Seemzygram
+          </Text>
+          {/* <Image style={styles.image} source={logo} resizeMode='contain' /> */}
+        </View>
         {isSignUp ? <SignUpForm /> : <SignInForm />}
         <TouchableOpacity
           style={styles.linkcontainer}
@@ -35,6 +51,13 @@ const styles = StyleSheet.create({
   link: {
     fontFamily: 'medium',
     color: colors.blue,
+  },
+  imagecontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '50%',
   },
 });
 export default AuthScreen;

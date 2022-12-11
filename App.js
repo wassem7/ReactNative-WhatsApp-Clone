@@ -28,6 +28,7 @@ export default function App() {
           'regular': require('./assets/fonts/Roboto-Regular.ttf'),
           'thin': require('./assets/fonts/Roboto-Thin.ttf'),
           'thinItalic': require('./assets/fonts/Roboto-ThinItalic.ttf'),
+          'seemzygram': require('./assets/fonts/FugazOne-Regular.ttf'),
         });
       } catch (error) {
         console.log(error);

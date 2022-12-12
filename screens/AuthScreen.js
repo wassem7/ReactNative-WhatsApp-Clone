@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+} from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PageContainer from '../components/PageContainer';
@@ -12,31 +20,35 @@ const AuthScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <PageContainer>
-        <View style={styles.imagecontainer}>
-          <Text
-            style={{
-              fontFamily: 'seemzygram',
-              padding: 70,
-              margin: 10,
-              fontSize: 30,
-              color: colors.primary,
-              letterSpacing: 1.5,
-              width: '100%',
-            }}
-          >
-            Seemzygram
-          </Text>
-          {/* <Image style={styles.image} source={logo} resizeMode='contain' /> */}
-        </View>
-        {isSignUp ? <SignUpForm /> : <SignInForm />}
-        <TouchableOpacity
-          style={styles.linkcontainer}
-          onPress={() => setisSignUp((prevState) => !prevState)}
-        >
-          <Text style={styles.link}>{`Switch to ${
-            isSignUp ? 'Login' : 'Sign Up'
-          }`}</Text>
-        </TouchableOpacity>
+        <ScrollView>
+          <KeyboardAvoidingView keyboardVerticalOffset={100}>
+            <View style={styles.imagecontainer}>
+              <Text
+                style={{
+                  fontFamily: 'seemzygram',
+                  padding: 70,
+                  margin: 10,
+                  fontSize: 30,
+                  color: colors.primary,
+                  letterSpacing: 1.5,
+                  width: '100%',
+                }}
+              >
+                Seemzygram
+              </Text>
+              {/* <Image style={styles.image} source={logo} resizeMode='contain' /> */}
+            </View>
+            {isSignUp ? <SignUpForm /> : <SignInForm />}
+            <TouchableOpacity
+              style={styles.linkcontainer}
+              onPress={() => setisSignUp((prevState) => !prevState)}
+            >
+              <Text style={styles.link}>{`Switch to ${
+                isSignUp ? 'Login' : 'Sign Up'
+              }`}</Text>
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        </ScrollView>
       </PageContainer>
     </SafeAreaView>
   );

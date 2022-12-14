@@ -13,7 +13,7 @@ import PageContainer from '../components/PageContainer';
 import SignUpForm from '../components/SignUpForm';
 import SignInForm from '../components/SignInForm';
 import colors from '../constants/colors';
-import logo from '../assets/images/SEEMZYGRAM-LOGO.png';
+
 const AuthScreen = () => {
   const [isSignUp, setisSignUp] = useState(false);
 

@@ -7,8 +7,22 @@ import SubmitButton from './SubmitButton';
 const SignInForm = () => {
   return (
     <>
-      <Input label={'Email'} icon='mail' iconPack={Feather} iconSize={24} />
-      <Input label={'Password'} icon='lock' iconPack={Feather} iconSize={24} />
+      <Input
+        label={'Email'}
+        icon='mail'
+        iconPack={Feather}
+        autoCapitalize='none'
+        iconSize={24}
+        keyboardType='email-address'
+      />
+      <Input
+        label={'Password'}
+        autoCapitalize='none'
+        secureTextEntry
+        icon='lock'
+        iconPack={Feather}
+        iconSize={24}
+      />
       <SubmitButton
         title='Sign In'
         onPress={() => console.log('Button Pressed !')}

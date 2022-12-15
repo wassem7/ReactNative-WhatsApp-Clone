@@ -19,6 +19,7 @@ const Input = (props) => {
         )}
 
         <TextInput
+          {...props}
           style={styles.input}
           selectionColor={colors.lightgrey}
           onChangeText={onChangeText}

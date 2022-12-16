@@ -1,23 +1,26 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useReducer } from 'react';
 import Input from './Input';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import SubmitButton from './SubmitButton';
-import {
-  validateEmail,
-  validatePassword,
-  validateString,
-} from '../utils/ValidationConstriants';
+import { validateInput } from '../utils/actions/formActions';
 
 const SignUpForm = () => {
+  const reducer = () => {};
+
+  const initialState = () => {
+    (inputValidities = {
+      firstName: false,
+      lastName: false,
+      email: false,
+      password: false,
+    }),
+      (formisValid = false);
+  };
+  const [formState, dispatchFormState] = useReducer(initialState, reducer);
   const inputchangeHandler = (inputId, inputValue) => {
-    if (inputId === 'firstName' || inputId === 'lastName') {
-      console.log(validateString(inputId, inputValue));
-    } else if (inputId === 'email') {
-      console.log(validateEmail(inputId, inputValue));
-    } else if (inputId === 'password') {
-      console.log(validatePassword(inputId, inputValue));
-    }
+    const result = validateInput(inputId, inputValue);
+    dispatchFormState({ validationResult: result });
   };
   return (
     <>
@@ -64,6 +67,7 @@ const SignUpForm = () => {
         title='Sign Up'
         onPress={() => console.log('Button Pressed !')}
         style={{ marginTop: 20 }}
+        disabled={!formState.formisValid}
       />
     </>
   );

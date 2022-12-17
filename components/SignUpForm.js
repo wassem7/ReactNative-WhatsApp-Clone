@@ -1,27 +1,30 @@
 import { View, Text } from 'react-native';
-import React, { useReducer } from 'react';
+import React, { useCallback, useReducer } from 'react';
 import Input from './Input';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import SubmitButton from './SubmitButton';
 import { validateInput } from '../utils/actions/formActions';
+import { reducer } from '../utils/reducers/formReducer';
+
+const initialState = {
+  inputValidities: {
+    firstName: false,
+    lastName: false,
+    email: false,
+    password: false,
+  },
+  formisValid: false,
+};
 
 const SignUpForm = () => {
-  const reducer = () => {};
-
-  const initialState = () => {
-    (inputValidities = {
-      firstName: false,
-      lastName: false,
-      email: false,
-      password: false,
-    }),
-      (formisValid = false);
-  };
-  const [formState, dispatchFormState] = useReducer(initialState, reducer);
-  const inputchangeHandler = (inputId, inputValue) => {
-    const result = validateInput(inputId, inputValue);
-    dispatchFormState({ validationResult: result });
-  };
+  const [formState, dispatchFormState] = useReducer(reducer, initialState);
+  const inputchangeHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({ inputId, validationResult: result });
+    },
+    [dispatchFormState]
+  );
   return (
     <>
       <Input
@@ -32,6 +35,7 @@ const SignUpForm = () => {
         autoCapitalize='none'
         iconSize={24}
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['firstName']}
       />
 
       <Input
@@ -42,6 +46,7 @@ const SignUpForm = () => {
         iconPack={FontAwesome}
         iconSize={24}
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['lastName']}
       />
       <Input
         id='email'
@@ -52,6 +57,7 @@ const SignUpForm = () => {
         iconPack={Feather}
         iconSize={24}
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['email']}
       />
       <Input
         autoCapitalize='none'
@@ -62,6 +68,7 @@ const SignUpForm = () => {
         iconPack={Feather}
         iconSize={24}
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['password']}
       />
       <SubmitButton
         title='Sign Up'

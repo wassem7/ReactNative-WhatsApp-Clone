@@ -1,13 +1,28 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import React, { useCallback, useReducer } from 'react';
 import Input from './Input';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import SubmitButton from './SubmitButton';
 import { validateInput } from '../utils/actions/formActions';
+import { reducer } from '../utils/reducers/formReducer';
+
+const initialState = {
+  inputValidities: {
+    email: false,
+    password: false,
+  },
+  formisValid: false,
+};
+
 const SignInForm = () => {
-  const inputchangeHandler = (inputId, inputValue) => {
-    console.log(validateInput(inputId, inputValue));
-  };
+  const [formState, dispatchFormState] = useReducer(reducer, initialState);
+  const inputchangeHandler = useCallback(
+    (inputId, inputValue) => {
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({ inputId, validationResult: result });
+    },
+    [dispatchFormState]
+  );
+
   return (
     <>
       <Input
@@ -19,6 +34,7 @@ const SignInForm = () => {
         iconSize={24}
         keyboardType='email-address'
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['email']}
       />
       <Input
         id='password'
@@ -29,11 +45,13 @@ const SignInForm = () => {
         iconPack={Feather}
         iconSize={24}
         onInputChanged={inputchangeHandler}
+        errorText={formState.inputValidities['password']}
       />
       <SubmitButton
         title='Sign In'
         onPress={() => console.log('Button Pressed !')}
         style={{ marginTop: 20 }}
+        disabled={!formState.formisValid}
       />
     </>
   );
